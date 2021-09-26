@@ -1,31 +1,37 @@
-local display = false
+local oxygen = 100
 
-RegisterCommand("on", function()
-    Citizen.CreateThread(function()
-        TriggerEvent("nui:on", true)
-    end)
+CreateThread(funtion()
+    while true do
+        Wait(200)
+        TriggerEvent('esx_status:getStatus', 'thirst', function(status)
+            thirst = status.getPercent()
+        end)
+        Wait(200)
+        TriggerEvent('esx_status:getStatus', 'hunger', function(status)
+            hunger = status.getPercent()
+        end)
+        Wait(200)
+    end
+    Wait(200)
 end)
 
-RegisterCommand("off", function()
-    Citizen.CreateThread(function()
-        TriggerEvent("nui:off", true)
-    end)
-end)
+oxygen = math.ceil(GetPlayerUnderwaterTimeRemaining(PlayerId))) * 4
 
-RegisterNetEvent("nui:on")
-AddEventHandler("nui", function(value)
-    SendNUIMessage({
-        type = "ui",
-        display = true
-    })
-end)
+CreateThread(function()
+    while true do
+        Wait(50)
+        local _p = PlayerPedId()
+        SendNUIMessage({
+            action = 'tick',
+            health = (GetEntityHealth(_p)-100),
+            armour = GetPedArmour(_p),
+            stamina = 100 - GetPlayerSprintStaminaRemaining(PlayerPedId()),
+            ooxygen = oxygen,
+            swim = swim,
+            hunger = hunger,
+            thirst = thirst
 
 
-
-RegisterNetEvent("nui:off")
-AddEventHandler("nui:off", function(value)
-    SendNUIMessage({
-        type = "ui",
-        display = false
-    })
-end)
+        })
+    end
+end) 
